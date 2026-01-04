@@ -6,8 +6,8 @@ public:
         if(n == 1) return x;
         if(n == -1) return 1/x;
         double prod = f(x, n/2);
-        if(n < 0 && n%2) return (1/x)*prod*prod;
-        else if(n%2) return x*prod*prod;
+        if(n < 0) x = 1/x;
+        if(n%2) return x*prod*prod;
         return prod*prod;
     }
     double myPow(double x, int n) {
