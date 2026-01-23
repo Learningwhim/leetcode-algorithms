@@ -13,18 +13,27 @@ class Solution {
 public:
     int maxl = -1;
     void traverse(vector<vector<int>> &ans, int level, TreeNode* root){
-        if(root == NULL) return;
-        maxl = max(maxl, level);
-        ans[level].push_back(root->val);
-        if(root->left != nullptr) traverse(ans, level+1, root->left);
-        if(root->right != nullptr) traverse(ans, level+1, root->right);
 
     }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> ans(2000);
+        vector<vector<int>> ans;
+        if(root == NULL) return ans;
         int level = 0;
-        traverse(ans, level, root);
-        ans.resize(maxl+1);
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            vector<int> temp;
+            int sz = q.size();
+            for(int i = 0; i < sz; ++i){
+                TreeNode* curr = q.front();
+                temp.push_back(curr->val);
+                q.pop();
+                if(curr->left) q.push(curr->left);
+                if(curr->right) q.push(curr->right);
+            }
+            ans.push_back(temp);
+        }
+       
         return ans;
     }
 };
