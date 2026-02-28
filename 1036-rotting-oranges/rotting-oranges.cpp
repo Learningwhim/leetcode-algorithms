@@ -15,9 +15,7 @@ public:
             }
         }
         while(!q.empty()){
-            int sz = q.size();
-            for(int k = 0; k < sz; ++k){
-                auto curr = q.front();
+                            auto curr = q.front();
                 q.pop();
                 int x = curr.first.first, y = curr.first.second;
                 time = max(curr.second, time);
@@ -37,7 +35,6 @@ public:
                     vis[x][y-1] = true;
                     q.push({{x,y-1}, curr.second+1});
                 }
-            }
 
         }
         for(int i = 0; i < n; ++i){
