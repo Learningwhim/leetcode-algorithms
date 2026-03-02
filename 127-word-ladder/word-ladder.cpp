@@ -6,6 +6,7 @@ public:
         int ans = 0;
         for(auto word : wordList) s.insert(word);
         queue<string> q;
+        if(s.find(endWord) == s.end()) return 0;
         string gen;
         q.push(beginWord);
         while(!q.empty()){
