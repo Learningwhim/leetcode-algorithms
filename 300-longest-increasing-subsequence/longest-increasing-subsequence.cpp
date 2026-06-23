@@ -1,30 +1,24 @@
 class Solution {
 public:
-    vector<vector<int>> dp;
-    int f(int i,int prev, vector<int>& nums){
-        if(i ==  nums.size()) return 0;
-        if(dp[i][prev+1] != -1) return dp[i][prev+1];
-        int skip = f(i+1, prev, nums) ;
-        int take = 0;
-        if (prev == -1 || nums[i] > nums[prev]) {
-            take = 1 + f(i + 1, i, nums);
+    void bs(int x, vector<int> &sub){
+        int lo = 0, hi = sub.size();
+        while(lo < hi){
+            int mid = lo+(hi-lo)/2;
+            if(sub[mid] < x){
+                lo = mid+1;
+            }else hi = mid;
         }
-        return dp[i][prev+1] = max(take, skip);
+        swap(x, sub[lo]);
     }
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        dp.assign(n+1, vector<int>(n+1, 0));
-        //return f(0, -1, nums);
-        for(int i = n-1; i >= 0; --i){
-            for(int j = i-1; j >= -1; --j){
-                int skip = dp[i+1][j+1] ;
-                int take = 0;
-                if (j == -1 || nums[i] > nums[j]) {
-                    take = 1 + dp[i+1][i+1];
-                }
-                dp[i][j+1] = max(take, skip); 
+        vector<int> sub;
+        for(int i = 0; i < n; ++i){
+            if(sub.empty() || sub.back() < nums[i]) sub.push_back(nums[i]);
+            else{
+                bs(nums[i], sub);
             }
         }
-        return dp[0][0];
+        return sub.size();
     }
 };
