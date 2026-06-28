@@ -9,7 +9,6 @@ public:
             if(arr[i]-arr[i-1] <= 1) continue;
             arr[i] = arr[i-1]+1;
         }
-        int max = arr[n-1];
-        return min(max,(int)arr.size());
+        return arr.back();
     }
 };
